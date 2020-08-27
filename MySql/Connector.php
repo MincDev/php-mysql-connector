@@ -34,9 +34,12 @@ namespace MySQL
 		/**
 		 *	Constructor that opens a new database connection
 		*/
-		function __construct() 
+		function __construct(array $connection_params) 
 		{
-			$this->connection = Connection::connect();
+			$this->connection = Connection::connect($connection_params['host'], 
+													$connection_params['user'], 
+													$connection_params['passwd'], 
+													$connection_params['schema']);
 		}
 
 		/**

@@ -18,12 +18,11 @@ namespace MySQL
 		 *
 		 * @return Connection The database connection.
 		 */
-		public static function connect() {
-			$DB_HOST 			= '127.0.0.1'; // Your host IP or name
-			$DB_USER_ACCOUNT 	= 'root'; // Your username for the database
-			$DB_USER_PASSWORD 	= ''; // Your password for the database
-			$DB_INSTANCE 		= 'connector'; // The database name
-
+		public static function connect(string $DB_HOST, 
+									   string $DB_USER_ACCOUNT, 
+									   string $DB_USER_PASSWORD, 
+									   string $DB_INSTANCE): \PDO 
+		{
 			$Database = new \PDO("mysql:host=$DB_HOST;dbname=$DB_INSTANCE", $DB_USER_ACCOUNT, $DB_USER_PASSWORD);
 			$Database->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
 			$Database->setAttribute(\PDO::ATTR_EMULATE_PREPARES, false);
