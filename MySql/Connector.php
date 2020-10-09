@@ -57,15 +57,26 @@ namespace MySQL
 		}
 
 		/**
-		 * Returns the number of rows for the specified query.
-		 *
+		 * Returns the number of rows for the specified query. 
+         * If doing a SELECT *, the rowCount will do a COUNT(*) query,
+         * otherwise will default to PDO's rowCount();
+         * 
 		 * @return integer
 		 */
 		public function rowCount(): int 
 		{
-			$stmt = $this->connection->prepare($this->strSql);
-			$stmt->execute($this->arrSql);
-			return $stmt->rowCount();
+            if (strpos($this->strSql, "*") !== False) {
+                $this->strSql = \str_replace("*", "COUNT(*)", $this->strSql);
+                $stmt = $this->connection->prepare($this->strSql);
+                $stmt->execute($this->arrSql);
+                $result = $stmt->fetchColumn();
+                $this->strSql = \str_replace("COUNT(*)", "*", $this->strSql);
+                return $result;
+            } else {
+                $stmt = $this->connection->prepare($this->strSql);
+                $stmt->execute($this->arrSql);
+                return $stmt->rowCount();
+            }
 		}
 
 		/**
