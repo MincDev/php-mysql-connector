@@ -7,7 +7,7 @@ You can install this library using composer by adding it to your composer.json f
 
 ```
 "require": {
-    "mincdev/mysql-connector": "^1.1"
+    "mincdev/mysql-connector": "^1.*"
 }
 ```
 or running the following command:
