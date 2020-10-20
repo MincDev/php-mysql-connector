@@ -122,10 +122,10 @@ namespace MySQL
 		 * Selects records from a table.
 		 * Requires the connector to be prepared using prepare()
 		 *
-		 * @param boolean $single If TRUE, the connector will only return one row, everything otherwise
+         * @param boolean $multi If true, then a multi-dimensional array will be returned
 		 * @return array
 		 */
-		public function select(): array 
+		public function select($multi = false): array 
 		{
 			$stmt = $this->connection->prepare($this->strSql);
 			$stmt->execute($this->arrSql);
@@ -134,9 +134,12 @@ namespace MySQL
 			while ($row = $stmt->fetch(\PDO::FETCH_ASSOC)) {
 				$rows[] = $row;
 			}
-			
-            // return count($rows) > 1 ? $rows : (count($rows) > 0 ? $rows[0] : []);
-            return $rows;
+            
+            if (!$multi) {
+                return count($rows) > 1 ? $rows : (count($rows) > 0 ? $rows[0] : []);
+            } else {
+                return $rows;
+            }
 		}
 
 		/**
