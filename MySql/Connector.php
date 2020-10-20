@@ -132,10 +132,11 @@ namespace MySQL
 
 			$rows = [];
 			while ($row = $stmt->fetch(\PDO::FETCH_ASSOC)) {
-				\array_push($rows, $row);
+				$rows[] = $row;
 			}
 			
-			return count($rows) > 1 ? $rows : (count($rows) > 0 ? $rows[0] : []);
+            // return count($rows) > 1 ? $rows : (count($rows) > 0 ? $rows[0] : []);
+            return $rows;
 		}
 
 		/**
