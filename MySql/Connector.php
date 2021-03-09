@@ -46,10 +46,10 @@ namespace MySQL
 		 * Sets the SQL string and parameters to be bound and returns the connector instance
 		 *
 		 * @param string $strSql The SQL string to execute
-		 * @param array $arrSql The parameters to be bound with the SQL string
+		 * @param array|null $arrSql The parameters to be bound with the SQL string
 		 * @return Connector
 		 */
-		public function prepare(string $strSql, ?array $arrSql): Connector
+		public function prepare(string $strSql, ?array $arrSql = null): Connector
 		{
 			$this->strSql = $strSql;
 			$this->arrSql = $arrSql;
